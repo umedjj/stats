@@ -1,5 +1,5 @@
-module github.com/umedjj/stats
+module github.com/umedjj/stats/v2
 
 go 1.16
 
-require github.com/umedjj/bank v0.0.0-20210402153541-9a06d66ffe0d
+require github.com/umedjj/bank/v2 v2.0.0
