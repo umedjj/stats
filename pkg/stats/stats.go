@@ -6,32 +6,18 @@ import(
 )
 
 // Avg рассчитывает среднюю сумму платежа
-func Avg(payments []types.Payment) types.Money {
-
-	sum := types.Money(0)
-	number := 0
-		
-    for _, payment:= range payments  {
-		if payment.Status != "FAIL" {
-			number++	
-			sum += payment.Amount
-		} 
-		 
-    }
-	averagepayment := sum / types.Money(number)
-	return averagepayment
-}
-// TotalnCategory находит сумму покупок в определенной категории
-func TotalInCategory(payments []types.Payment, category types.Category)types.Money  {
-	
-	sum := types.Money(0)
-	for _, payment:= range payments {
-		if payment.Status == "FAIL" {
-			continue
-		} 
-		if payment.Category == category{
-			sum += payment.Amount
-		} 		
+func CategoriesAvg(payments []types.Payment) map[types.Category]types.Money {
+	count := map[types.Category]types.Money{}
+	result := map[types.Category]types.Money{}
+  
+	for _, payment := range payments {
+	  result[payment.Category] += payment.Amount
+	  count[payment.Category]++
 	}
-	return sum 
-} 
+  
+	for key := range result {
+	  result[key] /= count[key]
+	}
+  
+	return result
+  }
