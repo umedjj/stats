@@ -5,19 +5,19 @@ import(
 	"github.com/umedjj/bank/v2/pkg/types" 
 )
 
-// Avg рассчитывает среднюю сумму платежа
-func CategoriesAvg(payments []types.Payment) map[types.Category]types.Money {
-	count := map[types.Category]types.Money{}
-	result := map[types.Category]types.Money{}
-  
-	for _, payment := range payments {
-	  result[payment.Category] += payment.Amount
-	  count[payment.Category]++
-	}
-  
-	for key := range result {
-	  result[key] /= count[key]
-	}
-  
-	return result
-  }
+func PeriodsDynamic(first map[types.Category]types.Money, second map[types.Category]types.Money) map[types.Category]types.Money  {
+	dynamic:= map[types.Category]types.Money{} 
+		for scndCategory, scndPay := range second {
+			dynamic[scndCategory]=scndPay-first[scndCategory]			
+	 	}
+	 for frstCategory, frstPay := range first {
+		 for _, _ = range dynamic {
+			_, ok:=dynamic[frstCategory]
+			if !ok{
+				dynamic[frstCategory]=0-frstPay
+			}
+		 }
+				
+			}	
+	return dynamic	 
+ }
